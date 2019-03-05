@@ -1,7 +1,6 @@
 package com.zilker.springboot.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zilker.springboot.beans.Employee;
@@ -19,72 +18,60 @@ import com.zilker.springboot.delegate.EmployeeDelegate;
 
 
 @RestController
-@RequestMapping("/employees")
+
 public class EmployeeController {
 
 @Autowired
 EmployeeDelegate employeeDelegate;
 	
 	
-	@GetMapping("/employee/all")
+	@GetMapping("/employees")
 	public List <Employee> viewEmployeeDetails() {
-		List <Employee> emp = new ArrayList<Employee>();
+		List <Employee> employeeList = null;
 		
-		emp = employeeDelegate.viewEmployeeDetails();
+		employeeList = employeeDelegate.viewEmployeeDetails();
 		
-		return emp;
+		return employeeList;
 	}
 
-	@GetMapping("/employee/{id}")
+	@GetMapping("/employees/{id}")
 	public List <Employee> viewEmployeeDetailsById(@PathVariable("id") int id) {
-		List <Employee> emp = new ArrayList<Employee>();
+		List <Employee> employeeList = null;
 		
-		emp = employeeDelegate.viewEmployeeDetailsById(id);
+		employeeList = employeeDelegate.viewEmployeeDetailsById(id);
 		
-		return emp;
+		return employeeList;
 	}
 	
-	@PostMapping("/employee")
-	public String registerEmployee(@RequestBody Employee employee) {
-		
-		System.out.println(employee);
-		String message="";
-		boolean flag=false;
+	@PostMapping("/employees")
+	public Employee registerEmployee(@RequestBody Employee employee) {
+		Employee employees = null;
+	
 		try {
-		flag = employeeDelegate.registerEmployee(employee);
-		if(flag==true) {
-		 message= "success";
-		}else {
-			message="failed";
-		}
+		employees  = employeeDelegate.registerEmployee(employee);
+			
 		}catch(Exception e) {
 			
 		}
 		
-		return message;
+		return  employees;
 	}
 
-	@PutMapping("/employee/{id}")
-	public String updateEmployee(@PathVariable("id") int id,@RequestBody Employee employee) {
+	@PutMapping("/employees/{id}")
+	public Employee  updateEmployee(@PathVariable("id") int id,@RequestBody Employee employee) {
 		
-		System.out.println(employee);
-		String message="";
-		boolean flag=false;
+		Employee employees = null;
 		try {
-		flag = employeeDelegate.updateEmployee(id,employee);
-		if(flag==true) {
-		 message= "success";
-		}else {
-			message="failed";
-		}
+			 employees = employeeDelegate.updateEmployee(id,employee);
+		
 		}catch(Exception e) {
 			
 		}
 		
-		return message;
+		return employees ;
 	}
 	
-	@DeleteMapping("/employee/{id}")
+	@DeleteMapping("/employees/{id}")
 	public String deleteEmployee(@PathVariable("id") int id) {
 		
 		

@@ -1,7 +1,6 @@
 package com.zilker.springboot.delegate;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,52 +17,52 @@ public class EmployeeDelegate {
 EmployeeDao employeeDao;
 	
 public List <Employee>  viewEmployeeDetails() {
-	List <Employee> emp = new ArrayList<Employee>();
+	List <Employee> employeeList = null;
 
 	try {
-		emp = employeeDao.viewEmployeeDetails();
+		employeeList = employeeDao.viewEmployeeDetails();
 
 	} catch (Exception e) {
 		System.out.println("exception here");
 	}
-	return emp;
+	return employeeList;
 }
 
 
 public List <Employee>  viewEmployeeDetailsById(int id) {
-	List <Employee> emp = new ArrayList<Employee>();
+	List <Employee> employeeList = null;
 
 	try {
-		emp = employeeDao.viewEmployeeDetailsById(id);
+		employeeList = employeeDao.viewEmployeeDetailsById(id);
 
 	} catch (Exception e) {
 		System.out.println("exception here");
 	}
-	return emp;
+	return employeeList;
 }
 
 	
-	public boolean registerEmployee(Employee employee) {
-		
-		boolean flag = false;
+	public Employee  registerEmployee(Employee employee) {
+		Employee employees = null;
 		try {
-			flag = employeeDao.registerEmployee(employee);
+			employees = employeeDao.registerEmployee(employee);
 
 		} catch (SQLException e) {
 			System.out.println("exception here");
 		}
-		return flag;
+		return employees;
 	}
-public boolean updateEmployee(int id ,Employee employee) {
-		
-		boolean flag = false;
+	
+public Employee updateEmployee(int id ,Employee employee) {
+	
+	Employee employees = null;
 		try {
-			flag = employeeDao.updateEmployee(id,employee);
+			employees = employeeDao.updateEmployee(id,employee);
 
 		} catch (SQLException e) {
 			System.out.println("exception here");
 		}
-		return flag;
+		return employees;
 	}
 	
 public boolean deleteEmployee(int id) {

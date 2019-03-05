@@ -19,37 +19,35 @@ public class EmployeeDao {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	public boolean registerEmployee(Employee employee)  throws SQLException{
-		boolean flag = false;
-		Employee emp;
+	public Employee  registerEmployee(Employee employee)  throws SQLException{
+		Employee employees = new Employee();
 		try {
-		
-			 emp = employeeRepository.save(employee);
-			 if(emp != null) {
-				 flag=true;
+			
+			employees = employeeRepository.save(employee);
+			 if(employees != null) {
+				
+				
 			 }
 		
 			}catch(Exception e) {
 				System.out.println("exception");
 			
 			}
-		return flag;
+		return employees;
 	}
-	public boolean updateEmployee(int id,Employee employee)  throws SQLException{
-		boolean flag = false;
-		Employee emp;
+	public Employee updateEmployee(int id,Employee employee)  throws SQLException{
+		Employee employees = new Employee();
 		try {
-			 employee.setId(id);
-			 emp = employeeRepository.save(employee);
-			 if(emp != null) {
-				 flag=true;
-			 }
+		
+			employee.setId(id);
+			 employees = employeeRepository.save(employee);
+			
 		
 			}catch(Exception e) {
 				System.out.println("exception");
 			
 			}
-		return flag;
+		return employees;
 	}
 	
 	public boolean deleteEmployee(int id)  throws SQLException{
@@ -69,28 +67,28 @@ public class EmployeeDao {
 	
 	
 	public List <Employee>  viewEmployeeDetails() {
-		List <Employee> emp = new ArrayList<Employee>();
+		List <Employee> employeeList = new ArrayList<Employee>();
 
 		try {
-			emp = employeeRepository.findAll();
+			employeeList = employeeRepository.findAll();
 
 		} catch (Exception e) {
 			System.out.println("exception here");
 		}
-		return emp;
+		return employeeList;
 	}
 
 	public List <Employee>  viewEmployeeDetailsById(int id) {
-		List <Employee> emp1 = new ArrayList<Employee>();
-		Optional <Employee> emp;
+		List <Employee> employeeList = new ArrayList<Employee>();
+		Optional <Employee> optionalEmployeeList;
 
 		try {
-			emp = employeeRepository.findById(id);
-			emp.ifPresent(emp1::add);
+			optionalEmployeeList = employeeRepository.findById(id);
+			optionalEmployeeList.ifPresent(employeeList::add);
 
 		} catch (Exception e) {
 			System.out.println("exception here");
 		}
-		return emp1;
+		return employeeList;
 	}
 }
